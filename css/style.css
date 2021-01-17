@@ -38,10 +38,15 @@ main {
     border-radius: 5px;
     transition: all ease .3s;
     cursor: pointer;
+    text-align: left;
+    margin: 10px;
+    
 }
-.btn:hover {
+.btn:hover, .btn:focus {
     background: rgba(33, 43, 166, 1);
+    outline: none;
 }
+
 h1 {
     margin-bottom: 20px;
 }
@@ -54,8 +59,16 @@ p {
     line-height: 1.5;
     font-size: 20px;
 }
-.questions {
-    padding-bottom: 40px;;
+.intro {
+    padding-bottom: 20px;
+}
+.question-container {
+    list-style: none;
+}
+.answers {
+    padding-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
 }
 .checker {
     border-top: 2px solid #afafaf;
