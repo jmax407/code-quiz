@@ -177,6 +177,7 @@ var startQuizHandler = function() {
             
             
             createAnswers();
+            return createQuestion
     }
     var createAnswers = function() {
 
