@@ -63,13 +63,19 @@ p {
     line-height: 1.5;
     font-size: 20px;
 }
-.intro {
+#intro {
     padding-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.intro h1 {
+.hide {
+    display: none !important;
+}
+input {
+    padding: 5px;
+}
+#intro h1 {
     text-align: center;
     width: 100%;
 }
@@ -81,7 +87,7 @@ p {
     list-style: none;
     width: 100%;
 }
-.answers {
+.answers-container {
     padding-bottom: 40px;
     display: flex;
     flex-wrap: wrap;

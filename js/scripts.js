@@ -1,154 +1,76 @@
 var questionCounter = 0;
-var questionContainer = document.querySelector(".question-container");
-var main = document.querySelector("main");
 var score = 0;
 var currentTime = 75;
 
+var quizContentEl = document.querySelector("#quiz-content");
+var questionContainer = quizContentEl.querySelector("#question-container");
+var startBtn = document.querySelector("#start-btn");
+var answersEl = document.querySelector(".answer-btn");
+var checkerEl = document.querySelector(".checker");
+var initalsEL = document.querySelector("#initials");
 
 var questionsObj = [
     {
-        question:  '1',
+        question:  'How do you write "Hello World" in an alert box?',
         answersArr: [
             'alertBox("Hello World");',
+            'msg("Hello World");',
             'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
+            'msgBox("Hello World");',
         ],
         correctAnswer: 'alert("Hello World");'
 
     },
     {
-        question:  '2',
+        question:  'How would you round 5.65 to the nearest Interger?',
         answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
+            'Math.closestInter(5.65)',
+            'round.Math(5.65)',
+            'Math.round(5.65)',
+            '.round(5.65)',
         ],
-        correctAnswer: 'alert("Hello World");'
+        correctAnswer: 'Math.round(5.65)',
 
     },
     {
-        question:  '3',
+        question:  'Which of the following type of variable is visible everywhere in your JavaScript code?',
         answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
+            "local variable",
+            "global variable",
+            "None of the above.",
+            "Both of the above.",
         ],
-        correctAnswer: 'alert("Hello World");'
+        correctAnswer: 'global variable'
 
     },
     {
-        question:  '4',
-        answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
-        ],
-        correctAnswer: 'alert("Hello World");'
-
-    },
-    {
-        question:  '5',
-        answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
-        ],
-        correctAnswer: 'alert("Hello World");'
-
-    },
-    {
-        question:  '6',
-        answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
-        ],
-        correctAnswer: 'alert("Hello World");'
-
-    },
-    {
-        question:  '7',
-        answersArr: [
-            'alertBox("Hello World");',
-            'alert("Hello World");',
-            'alert(Hello World);',
-            'alertmsg("Hello World");',
-        ],
-        correctAnswer: 'alert("Hello World");'
-
-    },
-]
-/*
-    {
-        question:  "Which of the following function of Array object adds one or more elements to the end of an array and returns the new length of the array?",
+        question:  'Which of the following function of Array object adds one or more elements to the end of an array and returns the new length of the array?',
         answersArr: [
             "pop()",
-            "push()",
+            "pull()",
             "join()",
-            "map()"
+            "push()",
         ],
-        correctAnswer: "push()"
+        correctAnswer: 'push()'
 
     },
     {
-        question:  "How do you round the number 5.35 to the nearest integer?",
+        question:  'Which is not a javascrip data type',
         answersArr: [
-            "Math.round(5.35)",
-            "round.Math(5.35)",
-            "mathRound(5.35)",
-            "Math.rnd(5.35)"
+            "Number",
+            "String",
+            "word",
+            "Object",
         ],
-        correctAnswer: 'Math.round(5.35)'
+        correctAnswer: 'word'
 
     },
-    {
-        question: "This is question 4",
-        answersArr: [
-            "answer 1",
-            "answer 2",
-            "answer 3",
-            "correct answer"
-
-        ],
-        correctAnswer: "correct answer"
-
-    },
-
     
+]
 
-    {
-        question:  "This is question 5",
-        answersArr: [
-            "correct answer",
-            "answer 2",
-            "answer 3",
-            "answer 4"
-
-        ],
-        correctAnswer: "correct answer"
-
-    }
-    ]
-*/
-    
-
-
- var answerBtnHandler = function(event) {
-     var targetEl = event.target;
-    console.log(answerBtnHandler);
- }
-  
-
-var startQuizHandler = function() {
-    event.preventDefault();
-    document.querySelector(".intro").remove();
-
+function quizStart() {
+    var introEl = document.querySelector("#intro");
+    introEl.setAttribute("class", "hide");
     document.querySelector("#timer").innerHTML = "Time: " + currentTime;
         var timeLeft = setInterval(function() {
                 currentTime--;
@@ -162,88 +84,115 @@ var startQuizHandler = function() {
 
                 }
         } ,1000);
-    var createQuiz = function() {
-
-            // for each question object in array create a question item
-            var createQuestion = document.createElement("li");
-            createQuestion.className ="question-item";
-            createQuestion.setAttribute("question-id", questionCounter);
-    
-            //create Question
-            var question = document.createElement("h1");
-            question.className = "question-value";
-            question.innerHTML = questionsObj[questionCounter].question; 
-            createQuestion.appendChild(question);
-            
-            
-            createAnswers();
-            return createQuestion
-    }
-    var createAnswers = function() {
-
-            // create answer container
-            var answerContainer = document.createElement("div");
-            answerContainer.className = "answers";
-            createQuestion.appendChild(answerContainer);
-
-            // create a button for each answer
-            for( j = 0; j < questionsObj[questionCounter].answersArr.length; j++) {
-                var answer = document.createElement("button");
-                answer.className = "btn answer-btn";
-                answer.innerHTML = questionsObj[questionCounter].answersArr[j];
-                answerContainer.appendChild(answer);
-       
-            } // End for loop
-            var correctAnswer = questionsObj[questionCounter].correctAnswer;
-            //console.log(correctAnswer);
-            
-         
-        questionContainer.appendChild(createQuestion);
-
-        questionContainer.addEventListener("click", function() {
-            var userAnswer = event.target.textContent;
-
-            if(userAnswer === correctAnswer) {
-                document.querySelector('.checker').innerHTML = "<h2>Correct!</h2>";
-                score++;
-               
-            }
-            else {
-                document.querySelector('.checker').innerHTML = "<h2>Wrong!</h2>";
-                currentTime = currentTime - 5;
-           }
-           console.log("score updatd: " + score + " / 5");
-           console.log("this is question " + questionCounter);
-           questionCounter++;
-           console.log("this is question " + questionCounter);
-           if(questionCounter >= questionsObj.length) {
-               gameOverFunc();
-           }
-           document.querySelector(".question-item").remove();
-           createQuiz();
-        });   
-    
-    }
-    createQuiz();
-    
+    getQuestion();
 }
 
-var gameOverFunc = function() {
-    /*
-    alert("the game is over");
+function getQuestion() {
+
+    //create container for current question & answers in the DOM
+    var createQuestion = document.createElement("li");
+    createQuestion.className ="question-item";
+
+    //create the Question
+    var question = document.createElement("h1");
+    question.className = "question-value";
+    question.innerHTML = questionsObj[questionCounter].question; 
+    
+
+    // create answer container
+    var answerContainer = document.createElement("div");
+    answerContainer.className = "answers-container";
+    
+
+    for( j = 0; j < questionsObj[questionCounter].answersArr.length; j++) {
+
+        var answer = document.createElement("button");
+        answer.className = "btn answer-btn";
+        var answerValue = questionsObj[questionCounter].answersArr[j];
+        answer.setAttribute("value",answerValue);
+        answer.innerHTML = answerValue;
+
+        answerContainer.appendChild(answer);
+
+    
+      answer.onclick = answerCheck;
+
+        
+        
+    } // End for loop
+    
+
+    questionContainer.appendChild(createQuestion);
+    createQuestion.appendChild(question);
+    createQuestion.appendChild(answerContainer);
+}
+
+function answerCheck() {
+    console.log('checking answers');
+
+    var userAnswer = event.target.textContent;
+    var correctAnswer = questionsObj[questionCounter].correctAnswer;
+        console.log("this is user anwer " + userAnswer);
+        console.log("this is the correct answer " + correctAnswer)
+
+        if(userAnswer === correctAnswer) {
+            document.querySelector('.checker').innerHTML = "<h2>Correct!</h2>";
+            score++;
+            
+        }
+        else {
+            document.querySelector('.checker').innerHTML = "<h2>Wrong!</h2>";
+            currentTime = currentTime - 5;
+        }
+
+
+    // next question
     document.querySelector(".question-item").remove();
-    var gameOver = document.createElement("div");
-    gameOver.className = "gameover";
+    questionCounter++;
 
-    var gameOverHeading = document.createElement("h1");
-    gameOverHeading.textContent = "All done!";
-
-    var finalScore = document.createElement("p");
-    finalScore.textContent = "Your final score is " + score;
-
-    // var initialsHolder = document.createElement
-    */
+    // check if we've run out of questions
+    if (questionCounter === questionsObj.length) {
+    // show end screen
+    var endScreenEl = document.querySelector("#finished");
+    endScreenEl.removeAttribute("class");
+  
+    // show final score
+    var finalScoreEl = document.querySelector("#final-score");
+    finalScoreEl.textContent = score;
+  
+    // hide questions section
+    
+    } else {
+    getQuestion();
+    }
 }
 
+function saveHighscore() {
+    // get value of input box
+    var initials = initialsEl.value();
+  
+    // make sure value wasn't empty
+    if (initials !== "") {
+      // get saved scores from localstorage, or if not any, set to empty array
+      var highscores =
+        JSON.parse(window.localStorage.getItem("highscores")) || [];
+  
+      // format new score object for current user
+      var newScore = {
+        score: time,
+        initials: initials
+      };
+  
+      // save to localstorage
+      highscores.push(newScore);
+      window.localStorage.setItem("highscores", JSON.stringify(highscores));
+  
+      // redirect to next page
+      window.location.href = "highscores.html";
+    }
+  }
+  
 
-document.querySelector("#start-btn").addEventListener("click", startQuizHandler);
+
+
+startBtn.onclick = quizStart;

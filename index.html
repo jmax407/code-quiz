@@ -7,19 +7,29 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <div id="page-container">
+    <div id="page-container"> 
         <header>
             <a href="#">View high scores</a>
             <span id="timer">Time: 00</span>
         </header>
 
-        <main>
-            <div class="intro">
+        <main id="quiz-content">
+            <div id="intro">
                 <h1>Coding Quiz Challenge</h1>
                 <a class="btn" id="start-btn">Start Quiz</a>
             </div>
-            <ul class="question-container">
-                
+            <div id="finished" class="hide">
+                <h1>All Done!</h1>
+                <p>Your final score is <span id="final-score"></span>.</p>
+                <p>
+                Enter initials: <input type="text" id="initials"  class="" />
+                <button id="submit" class="btn">Submit</button>
+                </p>
+            </div>
+            <ul id="question-container">
+                <div id="answer-container">
+
+                </div>
             </ul>
             <div class="checker">
             </div>
